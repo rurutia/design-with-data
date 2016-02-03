@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sketch Data Populator</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="Content/css/bootstrap.css" rel="stylesheet">
+    <link href="Content/css/angular-block-ui.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="Content/css/landing-page.css" rel="stylesheet">
+
+    <link href="Content/css/style.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="Content/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body data-ng-app="sketch-data-populator">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation" ng-controller="headerCtrl">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="logo-container"></div>
+                <a style="font-size:24px;" class="navbar-brand topnav" href="#home">Sketch Data Populator</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul style="font-size: 18px;" class="nav navbar-nav navbar-right">
+                    <li ng-if="!username">
+                        <a href="#login">Login</a>
+                    </li>
+                    <li ng-if="username">
+                        <a href="javascript:void(0)" ng-click="logout()"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                    <span>{{username}}</span> (logout) </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+    <!-- Header -->
+    <a name="about"></a>
+    <div class="intro-header">
+        <div class="container" style="min-height:570px">
+            <div data-ng-view id="ng-view"></div>
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.intro-header -->
+
+
+    <!-- Footer -->
+<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#home">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">⋅</li>
+                        <li>
+                            <a href="#about">Team</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright © Sportsbet Hack Day 2016. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="Scripts/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/angular-block-ui/dist/angular-block-ui.js"></script>
+
+
+    <script src="app/app.js"></script>
+    <script src="app/header_controller.js"></script>
+    <script src="app/main/main_controller.js"></script>
+    <script src="app/login/login_controller.js"></script>
+    <script src="app/util/file_ext_filter.js"></script>
+
+</body>
+
+</html>

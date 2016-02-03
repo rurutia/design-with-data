@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="intro-message">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div style="padding-top: 2%;padding-bottom: 2%">
+                        <div class="row">
+                            <div class="col-lg-2">
+
+                            <div class="dropdown clearfix">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{vm.current.name | removeJSONFileExt}} <span class="caret"></span> </button>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-header">Live</li>
+                                    <li ng-repeat="data in vm.liveResources">
+                                        <a href="javascript:void(0)" ng-click="vm.select(data)">{{data.name}}</a>
+                                    </li>
+                                    <li class="dropdown-header">Static</li>
+                                    <li ng-repeat="data in vm.staticFiles">
+                                        <a href="javascript:void(0)" ng-click="vm.select(data)">{{data.name | removeJSONFileExt}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4" ng-if="username=='admin'" >
+                            <div ng-show="!vm.isNew" class="input-group">
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-danger btn-md" ng-click="vm.isNew=true">New</button>
+                                  </span>
+                            </div>
+                            <div ng-show="vm.isNew" class="input-group">
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning btn-md" ng-click="vm.isNew=false">Cancel</button>
+                                  </span>
+                                <input type="text" ng-model="vm.newFilename" class="form-control" placeholder="New file name..." style="width: 200px">
+                                <span class="input-group-btn"> <button class="btn btn-primary" type="button" ng-click="vm.saveNew()">Save</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                    <textarea placeholder="Select data from dropdown..." class="form-control" rows="20" ng-model="vm.jsonContent"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1" style="height:50px">
+                <div ng-show="vm.info" style="padding:10px" class="alert alert-success fade in" role="alert">
+                    <span>{{vm.info}}</span>
+                </div>
+                <div ng-show="vm.warning" style="padding:10px" class="alert alert-warning fade in" role="alert">
+                    <span>{{vm.warning}}</span>
+                </div>
+            </div>
+            <div class="col-lg-5 col-lg-offset-1" >
+                <button ng-if="vm.current.type && vm.jsonContent && username=='admin' && vm.current && vm.current.type=='file'" class="btn btn-danger btn-lg" type="button" ng-click="vm.update()"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Update</button>
+                <button ng-disabled="!vm.current.type" class="btn btn-success btn-lg" type="button" ng-click="vm.refresh()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button>
+                <button ng-disabled="!vm.jsonContent" class="btn btn-primary btn-lg" type="button" ng-click="vm.download()"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download</button>
+            </div>
+        </div>
+    </div>
+</div>

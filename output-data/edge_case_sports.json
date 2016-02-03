@@ -1,0 +1,48 @@
+[
+    {
+        "id": 1,
+        "sport_name": "2012 London Olympic Specials",
+        "market_name": "3-Qtr Time: Home Team Total Points O/U",
+        "selection_name": ""
+
+
+    },
+
+    {
+        "id": 2,
+        "sport_name": "2012 London Olympic Specials",
+        "market_name": "Top Team B Runscorer\| - 1\|st\| \|Innings",
+        "selection_name": ""
+
+    },
+
+    {
+        "id": 3,
+        "sport_name": "2012 London Olympic Specials",
+        "market_name": "Will Team B get a try in 1st 10 mins?",
+        "selection_name": ""
+
+    },
+
+    {
+        "id": 4,
+        "sport_name": "2012 London Olympic Specials",
+        "market_name": "Home Team Total Points (3-Way)",
+        "selection_name": ""
+
+    },
+
+    {
+        "id": 5,
+        "sport_name": "2012 London Olympic Specials",
+        "market_name": "First Tryscorer.",
+        "selection_name": ""
+    },
+    {
+        "id": 6,
+        "sport_name": "2012 London Olympic Specials",
+        "market_name": "Line",
+        "selection_name": ""
+
+    }
+]

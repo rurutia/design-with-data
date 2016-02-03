@@ -1,0 +1,53 @@
+.bg-image {
+	background: url(images/Homepass-people-inspection-blue.jpg) no-repeat right;
+}
+
+.bg-login {
+	background: #fff;
+	min-height: 850px;
+}
+
+.login-logo {
+	margin: 10px;
+	width: 122px;
+	height: 30px;
+}
+
+.spacer-30 {
+	margin-top: 30%;
+}
+
+.spacer-20 {
+	margin-top: 20%;
+}
+
+#confirm-btn {
+  background: #03a9f4;
+  font-weight: bold;
+}
+
+.footer {
+	color: rgba(0,0,0,0.26);
+	text-align: center;
+}
+
+.footer a {
+	color: rgba(0,0,0,0.26);
+	text-decoration: underline;
+}
+
+md-select .md-select-label {
+	width: 100%;
+}
+
+.logo-container {
+	background: url('images/sb_logo.png');
+    background-size: cover;
+    border-radius: 50%;
+    width: 60px;
+    float: left;
+    height: 60px;
+    margin-right: 20px;
+    margin: 3px;
+}
+
