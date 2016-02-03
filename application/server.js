@@ -4,6 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 var beautify = require('js-beautify').js_beautify;
+var Promise = require("bluebird");
 
 var bodyParser = require('body-parser');
 
@@ -145,71 +146,50 @@ function getContentItemFromResponse(event) {
 	return contentItem;
 }
 
+function createHttpPromise(option) {
+  return new Promise(function(resolve, reject) {
+      var str = '';
+      https.request(option, function(response) {
+          response.on('data', function (chunk) { str += chunk; });
+          response.on('end', function () {
+              resolve(str);
+          });
+      }).end();
+  });
+};
+
 router.get('/live/:resourceName', function(req, res) {
+    var result = {content: []};
     switch(req.params.resourceName) {
         case "racing":
-            var options1 = {host: "m.sb.pre.sbetenv.com", path:"/v1/sportsbook/meetings?classId=1"};
-            var str = '';
-            var callback1 = function(response) {
-              response.on('data', function (chunk) { str += chunk; });
-              response.on('end', function () {
-                var meetings = JSON.parse(str).meetingList;
-                var randomMeetings = _.sample(meetings, 4);
-                var result = {
-                	content: []
-                };
-                
-            	//----
-                var options2 = {host: "m.sb.pre.sbetenv.com", path:"/mobile/sportsbook/racecardmeeting/" + randomMeetings[0].eventList[0].id};
-                var callback2 = function(response) {
-                  var str2 = '';
-                  response.on('data', function (chunk) { str2 += chunk; });
-                  response.on('end', function () {
-                    var event = JSON.parse(str2).meeting.event[0];
-                    result.content.push(getContentItemFromResponse(event));
-                    var options3 = {host: "m.sb.pre.sbetenv.com", path:"/mobile/sportsbook/racecardmeeting/" + randomMeetings[1].eventList[0].id};
-                    var callback3 = function(response) {
-                        var str3 = '';
-                        response.on('data', function (chunk) { str3 += chunk; });
-                        response.on('end', function () {
-                          var event = JSON.parse(str3).meeting.event[0];
-                          result.content.push(getContentItemFromResponse(event));
-                          var options4 = {host: "m.sb.pre.sbetenv.com", path:"/mobile/sportsbook/racecardmeeting/" + randomMeetings[2].eventList[0].id};
-                          var callback4 = function(response) {
-                              var str4 = '';
-                              response.on('data', function (chunk) { str4 += chunk; });
-                              response.on('end', function () {
-                                var event = JSON.parse(str4).meeting.event[0];
-                                result.content.push(getContentItemFromResponse(event));
-                                var options5 = {host: "m.sb.pre.sbetenv.com", path:"/mobile/sportsbook/racecardmeeting/" + randomMeetings[3].eventList[0].id};
-                                var callback5 = function(response) {
-                                    var str5 = '';
-                                    response.on('data', function (chunk) { str5 += chunk; });
-                                    response.on('end', function () {
-                                      var event = JSON.parse(str5).meeting.event[0];
-                                      result.content.push(getContentItemFromResponse(event));
-                                      result.content = beautify(JSON.stringify(result.content));
-
-                                      res.json(result);
-                                    });
-                                  };
-                                  https.request(options5, callback5).end();
-                                
-                              });
-                            };
-                            https.request(options4, callback4).end();
-                        });
-                      };
-                      https.request(options3, callback3).end();
-                  });
-                };
-                https.request(options2, callback2).end();
-
-                //----             
-                
-              });
-            };
-            https.request(options1, callback1).end();
+            var randomMeetings;
+            createHttpPromise({host: "m.sb.pre.sbetenv.com", path:"/v1/sportsbook/meetings?classId=1"}).then(function(response) {
+                console.log(response);
+                var meetings = JSON.parse(response).meetingList;
+                randomMeetings = _.sample(meetings, 4);
+                return createHttpPromise({host: "m.sb.pre.sbetenv.com", path:"/mobile/sportsbook/racecardmeeting/" + randomMeetings[0].eventList[0].id})
+            }).then(function(response) {
+                console.log(response);
+                var event = JSON.parse(response).meeting.event[0];
+                result.content.push(getContentItemFromResponse(event));
+                return createHttpPromise({host: "m.sb.pre.sbetenv.com", path:"/mobile/sportsbook/racecardmeeting/" + randomMeetings[1].eventList[0].id})
+            }).then(function(response) {
+                console.log(response);
+                var event = JSON.parse(response).meeting.event[0];
+                result.content.push(getContentItemFromResponse(event));
+                return createHttpPromise({host: "m.sb.pre.sbetenv.com", path:"/mobile/sportsbook/racecardmeeting/" + randomMeetings[2].eventList[0].id})
+            }).then(function(response) {
+                console.log(response);
+                var event = JSON.parse(response).meeting.event[0];
+                result.content.push(getContentItemFromResponse(event));
+                return createHttpPromise({host: "m.sb.pre.sbetenv.com", path:"/mobile/sportsbook/racecardmeeting/" + randomMeetings[3].eventList[0].id})
+            }).then(function(response) {
+                console.log(response);
+                var event = JSON.parse(response).meeting.event[0];
+                result.content.push(getContentItemFromResponse(event));
+                result.content = beautify(JSON.stringify(result.content));
+                res.json(result);
+            });
 
             break;
 
